@@ -1,5 +1,6 @@
 .main{
     margin: 0 !important;
+    padding: 0 !important;
 }
 .ant-form-item-control-input,:where(.css-dev-only-do-not-override-14qglws).ant-col-xl-14 ,:where(.css-dev-only-do-not-override-14qglws).ant-form-item .ant-form-item-control:first-child:not([class^="'ant-col-'"]):not([class*="' ant-col-'"]), :where(.css-dev-only-do-not-override-14qglws).ant-col-lg-10{
     margin: 0 !important;
@@ -48,14 +49,21 @@
     margin-top: 2%;
     margin-bottom: 3%;
 }
+.forgot-password{
+    margin-left: 40% !important;
+    font-size: 13px;
+    font-family: 'poppins';
+}
 .input{
     width: 400px;
     height: 50px;
-    font-size: 20px;
+    font-size: 16px;
+    font-family: 'poppins';
+    margin-bottom: 2%;
 }
-.remember-me{
-    margin: 0;
-}
+.checkbox{
+    font-size: 13px;
+    font-family: 'poppins';}
 .login-btn1{
     background-color: #2f3990 !important;
     width: 400px;

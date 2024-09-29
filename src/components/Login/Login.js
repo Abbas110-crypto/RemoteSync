@@ -1,19 +1,27 @@
 import React from 'react'
 import './Login.css';
-import { Row, Col, Button, Checkbox, Form, Input } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Checkbox, Form, Input, Flex, Row, Col,message } from 'antd';
+import axiosInstance from '../../axiosInterceptor/index';
 
-const onFinish = (values) => {
-    console.log('Success:', values);
+const onFinish = async (values) => {
+    try {
+        console.log(values);
+        axiosInstance.post('/api/login', values);
+        message.success('Login Successful');
+
+    } catch (error) {
+        message.warning('Wrong Credentials');
+        console.error('Error submitting form:', error);
+    }
 };
-const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-};
+
 
 function Login() {
     return (
         <div className='main'>
             <Row>
-            <Col xs={24} sm={24} md={14} lg={14} xl={14}>
+                <Col xs={24} sm={24} md={14} lg={14} xl={14}>
                     <div className='section1'>
                         <h3 className='heading1'>Work on big ideas,<br />without the busywork.</h3>
                     </div>
@@ -24,82 +32,46 @@ function Login() {
                         <h2 className='login-heading'>Login to your Account </h2>
                         <h6 className='login-subheading'>See what is going on with your business</h6>
                         <Form
-                            name="basic"
-                            labelCol={{
-                                span: 24,
-                            }}
-                            wrapperCol={{
-                                span: 24,
+                            name="login"
+                            onFinish={onFinish}
+                            initialValues={{
+                                remember: true,
                             }}
                             style={{
                                 maxWidth: 400,
                             }}
-                            initialValues={{
-                                remember: true,
-                            }}
-                            onFinish={onFinish}
-                            onFinishFailed={onFinishFailed}
-                            autoComplete="on"
                         >
                             <Form.Item
-                                label="Username"
-                                name="username"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please Enter your username!',
-                                    },
-                                ]}
+                                name="email"
+                                rules={[{ type: 'email', message: 'The input is not valid E-mail!' }, { required: true, message: 'Please input your E-mail!' }]}
                             >
-                                <Input className='input'/>
+                                <Input prefix={<UserOutlined />} placeholder="Email" className='input' />
                             </Form.Item>
-
                             <Form.Item
-                                label="Password"
                                 name="password"
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'Please Enter your password!',
+                                        message: 'Please input your Password!',
                                     },
                                 ]}
                             >
-                                <Input.Password className='input'/>
+                                <Input prefix={<LockOutlined />} type="password" placeholder="Password" className='input'/>
+                            </Form.Item>
+                            <Form.Item>
+                                <Flex justify="space-between" align="center">
+                                    <Form.Item name="remember" valuePropName="checked" noStyle >
+                                        <Checkbox className='checkbox'>Remember me</Checkbox>
+                                    </Form.Item>
+                                    <a href="https://ant.design/components/form" className='forgot-password'>Forgot password</a>
+                                </Flex>
                             </Form.Item>
 
-                            <Form.Item
-                                name="remember"
-                                valuePropName="checked"
-                                wrapperCol={{
-                                    offset: 8,
-                                    span: 24,
-                                }}
-                            >
-                                <Checkbox className='remember-me'>Remember me</Checkbox>
-                            </Form.Item>
-
-                            <Form.Item
-                                wrapperCol={{
-                                    offset: 8,
-                                    span: 24,
-                                }}
-                            >
-                                <Button className="login-btn1" htmlType="submit">
-                                    Login
+                            <Form.Item>
+                                <Button className='login-btn1' htmlType="submit">
+                                    Log in
                                 </Button>
-                            </Form.Item>
-                            <Form.Item
-                                wrapperCol={{
-                                    offset: 8,
-                                    span: 24,
-                                }}
-                            >
-                                <Button className="login-btn2" htmlType="submit">
-                                    Login as Admin
-                                </Button>
-                                <Button className="login-btn3" htmlType="submit">
-                                    Login as Member
-                                </Button>
+                                or <a href="http://localhost:3000/">Register now!</a>
                             </Form.Item>
                         </Form>
 
